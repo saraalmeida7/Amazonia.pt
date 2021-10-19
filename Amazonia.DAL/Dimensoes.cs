@@ -1,4 +1,5 @@
-class Dimensoes
+namespace Amazonia.DAL{
+public class Dimensoes
 {
     //Altura em Centimetros
     public float Altura { get; set; }
@@ -14,4 +15,5 @@ class Dimensoes
 
     public float Volume => Largura * Altura * Profundidade;
 
+}
 }

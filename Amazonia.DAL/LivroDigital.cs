@@ -1,4 +1,5 @@
-class LivroDigital : Livro
+namespace Amazonia.DAL{
+public class LivroDigital : Livro
 {
     public int TamanhoEmMB { get; set; }
 
@@ -6,4 +7,5 @@ class LivroDigital : Livro
 
     public string InformacoesLicenca { get; set; }
 
+}
 }
