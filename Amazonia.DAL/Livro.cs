@@ -12,5 +12,9 @@ public abstract class Livro
     public string Autor { get; set; }
 
     public Idioma Idioma { get; set; }
+
+    public virtual decimal ObterPreco(){
+        return Preco;
+    }
 }
 }

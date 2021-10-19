@@ -35,7 +35,7 @@ namespace Amazonia.DAL.Repositorios
 
         public void Criar(Cliente obj)
         {
-            throw new System.NotImplementedException();
+            ListaClientes.Add(obj);
         }
 
         public Cliente ObterPorNome(string Nome)

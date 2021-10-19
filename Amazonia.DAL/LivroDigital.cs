@@ -7,5 +7,9 @@ public class LivroDigital : Livro
 
     public string InformacoesLicenca { get; set; }
 
+    public override decimal ObterPreco(){
+        return base.ObterPreco() * 0.90M;
+    }
+
 }
 }
