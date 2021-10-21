@@ -9,8 +9,8 @@ namespace Amazonia.DAL.Repositorios
         void Criar(T obj);
         T ObterPorNome(string Nome);
         List<T> ObterTodos();
-        T Atualizar(T obj);
-        void Apagar();
+        T Atualizar(string nomeAntigo, string nomeNovo);
+        void Apagar(T obj);
     } 
 
 }
