@@ -11,5 +11,8 @@ public class LivroDigital : Livro
         return base.ObterPreco() * 0.90M;
     }
 
+    public override string ToString(){
+        return $"{base.ToString()} Informacoes Licenca: {InformacoesLicenca}";
+    }
 }
 }

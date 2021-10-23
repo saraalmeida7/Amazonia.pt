@@ -12,11 +12,13 @@ namespace Amazonia.DAL.Repositorios
             public RepositorioLivro(){
                 ListaLivros = new List<Livro>();
 
-                var livroHistorias = new LivroDigital{Nome = "historias"};
-                var livroTerror = new LivroDigital{Nome = "Terror"};
+                var livroHistorias = new LivroDigital{Nome = "historias", InformacoesLicenca="Gratuita"};
+                var livroTerror = new AudioLivro{Nome = "Terror", DuracaoLivro = 6, FormatoFicheiro = "MP3"};
+                var harryPotter = new LivroImpresso{Nome ="Harry Potter"};
 
                 ListaLivros.Add(livroHistorias);
                 ListaLivros.Add(livroTerror);
+                ListaLivros.Add(harryPotter);
 
             //   var joao = new Cliente();
             // joao.Nome = "Joao";

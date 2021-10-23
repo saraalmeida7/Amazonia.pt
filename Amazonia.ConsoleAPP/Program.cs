@@ -11,49 +11,64 @@ namespace Amazonia.ConsoleAPP
         {
             Console.WriteLine("Consulta do Database");
 
-            var repoLivro = new RepositorioLivro();
-            var todosLivros = repoLivro.ObterTodos();
+            //ListarClientes();
+            ListarLivros();
+         }
 
-            foreach(var item in todosLivros){
-                System.Console.WriteLine(item);
-            }
+         public static void ListarLivros(){
 
-            repoLivro.Criar(new LivroImpresso{Nome = "contos Infantis"});
+             var repo = new RepositorioLivro();
+             var ListaLivros = repo.ObterTodos();
 
-            foreach(var item in todosLivros){
-                System.Console.WriteLine(item);
-            }
+             foreach(var item in ListaLivros){
+                 System.Console.WriteLine(item);
+             }
+             
+            // var repoLivro = new RepositorioLivro();
+            // var todosLivros = repoLivro.ObterTodos();
 
-            repoLivro.Apagar(todosLivros.Find(x => x.Nome == "historias"));
-            repoLivro.Atualizar("Terror", "MuitoTerror");
-
-            foreach(var item in todosLivros){
-                System.Console.WriteLine(item);
-            }
-
-            // var repo = new RepositorioCliente();
-            // //var listaClientes = repo.ObterTodos();
-
-            // var listaClientes = repo.ObterTodosQueComecemPor("J");
-
-            // foreach (var cliente in listaClientes)
-            // {
-            //     System.Console.WriteLine(cliente);
-            // }
-
-            // var listaClientesAdultos = repo.ObterTodosQueTenhamPeloMenos18Anos();
-            // foreach(var item in listaClientesAdultos)
-            // {
+            // foreach(var item in todosLivros){
             //     System.Console.WriteLine(item);
             // }
 
-            //  var listagemTotal = repo.ObterTodos();
+            // repoLivro.Criar(new LivroImpresso{Nome = "contos Infantis"});
 
-            // var joao = repo.ObterPorNome("Joao");
-            // System.Console.WriteLine(joao);
-            // System.Console.WriteLine($"Database contem: {listagemTotal.Count}");
+            // foreach(var item in todosLivros){
+            //     System.Console.WriteLine(item);
+            // }
 
-            // repo.Apagar(joao);
+            // repoLivro.Apagar(todosLivros.Find(x => x.Nome == "historias"));
+            // repoLivro.Atualizar("Terror", "MuitoTerror");
+
+            // foreach(var item in todosLivros){
+            //     System.Console.WriteLine(item);
+            // }
+         }
+
+         public static void ListarClientes(){
+            var repo = new RepositorioCliente();
+            //var listaClientes = repo.ObterTodos();
+
+            var listaClientes = repo.ObterTodosQueComecemPor("J");
+
+            foreach (var cliente in listaClientes)
+            {
+                System.Console.WriteLine(cliente);
+            }
+
+            var listaClientesAdultos = repo.ObterTodosQueTenhamPeloMenos18Anos();
+            foreach(var item in listaClientesAdultos)
+            {
+                System.Console.WriteLine(item);
+            }
+
+             var listagemTotal = repo.ObterTodos();
+
+            var joao = repo.ObterPorNome("Joao");
+            System.Console.WriteLine(joao);
+            System.Console.WriteLine($"Database contem: {listagemTotal.Count}");
+
+            repo.Apagar(joao);
 
             // System.Console.WriteLine($"Database contem: {listagemTotal.Count}");
 
