@@ -20,6 +20,18 @@ namespace Amazonia.DAL.Entidades
         public DateTime DataNascimento { get; set; }
 
         public int Idade => DateTime.Now.Year - DataNascimento.Year;
+        public string NumeroIdentificacaoFiscal { get; set; }
+        public bool NifEstavalido() 
+        { 
+            if(NumeroIdentificacaoFiscal.Length != 9)
+                return false;
+
+            /*Colocar novas regras do algoritmo*/
+            //if (NumeroIdentificacaoFiscal.ToCharArray().Distinct().ToList().Count == 1)
+              //  return false;
+
+            return false;
+        }
 
         public override string ToString()
         {
