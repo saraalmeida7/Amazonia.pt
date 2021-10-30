@@ -95,7 +95,7 @@ namespace Amazonia.DAL.Tests
         {
             var repo = new RepositorioLivro();
             var livros = repo.ObterTodos();
-            var livroInexistente = new LivroDigital();
+            var livroInexistente = new LivroImpresso();
 
             var livrosInicialmente = livros.Count;
             repo.Apagar(livroInexistente);

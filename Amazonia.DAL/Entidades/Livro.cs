@@ -5,7 +5,7 @@ public abstract class Livro : Entidade
 
     // public string TipoPublicacao { get; set; }
 
-    public decimal Preco { get; set; }
+    public decimal Preco { protected get; set; }
 
     public string Descricao { get; set; }
 
@@ -16,5 +16,10 @@ public abstract class Livro : Entidade
     public virtual decimal ObterPreco(){
         return Preco;
     }
+
+    //public virtual void informarPreco(decimal precoSemDesconto)
+    //{
+    //        Preco = precoSemDesconto;
+    //}
 }
 }
