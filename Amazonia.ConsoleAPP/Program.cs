@@ -1,7 +1,8 @@
 ﻿using System;
 using Amazonia.DAL;
 using Amazonia.DAL.Repositorios;
-using Amazonia.DAL.Entidades;
+using Amazonia.DAL.Entidades;using System.Configuration;
+
 
 namespace Amazonia.ConsoleAPP
 {
@@ -10,6 +11,21 @@ namespace Amazonia.ConsoleAPP
         static void Main(string[] args)
         {
             Console.WriteLine("Consulta do Database");
+
+            var chaveExemplo = ConfigurationManager.AppSettings["chaveExemplo"];
+
+            var usarRegraNovaStr = ConfigurationManager.AppSettings["regraNovaAtiva"];
+            var usarRegraNova = Convert.ToBoolean(usarRegraNovaStr);
+
+            if(usarRegraNova)
+            {
+                ListarClientes();
+            }
+            else
+            {
+                ListarLivros();
+            }
+
 
             //ListarClientes();
             ListarLivros();
