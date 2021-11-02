@@ -1,3 +1,4 @@
+using Amazonia.DAL.Desconto;
 using Amazonia.DAL.Entidades;
 using System.Collections.Generic;
 
@@ -6,6 +7,6 @@ interface ICarrinhoCompras
 {
     decimal CalcularPreco();
 
-    decimal AplicarDesconto(decimal valorDesconto); //TODO: Criar regra Desconto
+    decimal AplicarDesconto(IDesconto tipoDesconto); //TODO: Criar regra Desconto
 }
 }

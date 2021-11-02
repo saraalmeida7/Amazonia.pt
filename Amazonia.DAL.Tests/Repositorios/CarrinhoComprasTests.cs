@@ -1,11 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Amazonia.DAL.Repositorios;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Amazonia.DAL.Entidades;
+using Amazonia.DAL.Desconto;
+using System.Configuration;
 
 namespace Amazonia.DAL.Repositorios.Tests
 {
@@ -23,7 +20,7 @@ namespace Amazonia.DAL.Repositorios.Tests
             };
 
             var clienteFake = new Cliente();
-            var carrinho = new CarrinhoCompras();
+            var carrinho = new CarrinhoCompras { Livros = livrosFake };
 
             var valorEsperado = 60M;
 
@@ -45,7 +42,7 @@ namespace Amazonia.DAL.Repositorios.Tests
             };
 
             var clienteFake = new Cliente();
-            var carrinho = new CarrinhoCompras();
+            var carrinho = new CarrinhoCompras { Livros = livrosFake };
 
             var valorEsperado = 54M;
 
@@ -70,7 +67,7 @@ namespace Amazonia.DAL.Repositorios.Tests
             };
 
             var clienteFake = new Cliente();
-            var carrinho = new CarrinhoCompras();
+            var carrinho = new CarrinhoCompras { Livros = livrosFake };
 
             var valorEsperado = 114M;
 
@@ -92,16 +89,108 @@ namespace Amazonia.DAL.Repositorios.Tests
             };
 
             var clienteFake = new Cliente();
-            var carrinho = new CarrinhoCompras();
+            var carrinho = new CarrinhoCompras { Livros = livrosFake };
 
             var valorEsperado = 80M;
             var valorDesconto = 20;
             carrinho.Livros = livrosFake;
 
-            var valorTotalAposDesconto = carrinho.AplicarDesconto(valorDesconto);
+            var valorTotalAposDesconto = carrinho.AplicarDesconto(null); //nulo apenas para exemplo
           
 
             Assert.AreEqual(valorEsperado, valorTotalAposDesconto);
         }
+        
+        [TestMethod()]
+        public void AplicarDescontoExemploDescontoPercentualTest()
+        {
+            var livrosFake = new List<Livro>
+            {
+                new LivroImpresso { Preco = 60, Nome = "Impresso 01" },
+                new LivroImpresso { Preco = 40, Nome = "Impresso 02" }
+            };
+
+
+            var carrinho = new CarrinhoCompras { Livros = livrosFake };
+
+            var valorEsperado = 80M;
+            IDesconto desconto = new DescontoPercentual { PercentualDesconto = 20 };
+  
+
+            var valorTotalAposDesconto = carrinho.AplicarDesconto(desconto); 
+
+            Assert.AreEqual(valorEsperado, valorTotalAposDesconto);
+        }
+
+        [TestMethod()]
+        public void AplicarDescontoExemploDescontoPercentualEDescontoCombinadoParaComparacaoTest()
+        {
+            var livrosFake = new List<Livro>
+            {
+                new LivroImpresso { Preco = 60, Nome = "Impresso 01" },
+                new LivroImpresso { Preco = 40, Nome = "Impresso 02" }
+            };
+
+
+            var carrinho = new CarrinhoCompras { Livros = livrosFake };
+
+            IDesconto descontoPercentual = new DescontoPercentual { PercentualDesconto = 20 };
+            var valorTotalAposDescontoPercentual = carrinho.AplicarDesconto(descontoPercentual);
+
+
+            IDesconto descontoCombinado = new DescontoCombinado { PercentualDesconto = 20, LivrosCarrinho = livrosFake, LivrosDigitais = 1, LivrosImpressos = 2 };
+            var valorTotalAposDescontoCombinado = carrinho.AplicarDesconto(descontoCombinado); 
+        }
+
+        [TestMethod()]
+        public void AplicarDescontoAPartirConfigTest()
+        {
+            var livrosFake = new List<Livro>
+            {
+                new LivroImpresso { Preco = 60, Nome = "Impresso 01" },
+                new LivroImpresso { Preco = 40, Nome = "Impresso 02" },
+                new LivroDigital { Preco = 100, Nome = "Digital 01"}
+            };
+
+
+            var carrinho = new CarrinhoCompras { Livros = livrosFake };
+
+            IDesconto desconto;
+
+            var condicao = ConfigurationManager.AppSettings["RegraDescontoValida"] == "Percentual"; ; //Introducao à dependencia / Dependencia Inversa / Dependency Inversion
+            
+            if (condicao)
+            {
+                desconto = new DescontoPercentual
+                {
+                    PercentualDesconto = 10
+                };
+            }
+            else
+            {
+                desconto = new DescontoCombinado
+                {
+                    PercentualDesconto = 20,
+                    LivrosCarrinho = livrosFake,
+                    LivrosDigitais = 1,
+                    LivrosImpressos = 2
+                };
+            }
+
+
+            var valorTotalAposDesconto = carrinho.AplicarDesconto(desconto);
+
+            //Assert 
+            if (condicao)
+            {
+                Assert.AreEqual(171, valorTotalAposDesconto);
+            }
+            else
+            {
+                Assert.AreEqual(152, valorTotalAposDesconto);
+            }
+
+        }
+
     }
 }

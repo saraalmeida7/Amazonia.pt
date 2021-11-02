@@ -1,9 +1,7 @@
-﻿using Amazonia.DAL.Entidades;
-using System;
+﻿using Amazonia.DAL.Desconto;
+using Amazonia.DAL.Entidades;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amazonia.DAL.Repositorios
 {
@@ -13,12 +11,20 @@ namespace Amazonia.DAL.Repositorios
 
         public List<Livro> Livros { get; set; }
 
-        public decimal AplicarDesconto(decimal valorDesconto)
-        {
-            var fatorDesconto = 100M - valorDesconto/100;
-            var valorCalculado = Livros.Sum(x => x.ObterPreco());
-            var valorComDesconto = valorCalculado * fatorDesconto;
+        //public decimal AplicarDesconto(decimal valorDesconto)
+        //{
+        //    var fatorDesconto = 100M - valorDesconto/100;
+        //    var valorCalculado = Livros.Sum(x => x.ObterPreco());
+        //    var valorComDesconto = valorCalculado * fatorDesconto;
 
+
+        //    return valorComDesconto;
+        //}
+
+        public decimal AplicarDesconto(IDesconto tipoDesconto)
+        {
+            var valorCalculado = Livros.Sum(x => x.ObterPreco());
+            var valorComDesconto = tipoDesconto.Aplicar(valorCalculado);
 
             return valorComDesconto;
         }
