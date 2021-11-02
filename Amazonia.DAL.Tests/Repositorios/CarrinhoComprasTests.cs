@@ -81,6 +81,7 @@ namespace Amazonia.DAL.Repositorios.Tests
             Assert.AreEqual(valorEsperado, valorObtido);
         }
 
+        [Ignore]
         [TestMethod()]
         public void AplicarDescontoTest()
         {
